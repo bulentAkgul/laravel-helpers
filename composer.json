@@ -1,0 +1,30 @@
+{
+  "name": "bakgul/laravel-helpers",
+  "description": "...",
+  "authors": [
+    {
+      "name": "Bulent Akgul",
+      "email": "bulent.akgul@me.com"
+    }
+  ],
+  "require": {},
+  "require-dev": {},
+  "autoload": {
+    "psr-4": {
+      "Bakgul\\LaravelHelpers\\": "src/",
+      "Bakgul\\LaravelHelpers\\Database\\Seeders\\": "database/seeders/",
+      "Bakgul\\LaravelHelpers\\Database\\Factories\\": "database/factories/",
+      "Bakgul\\LaravelHelpers\\Tests\\": "tests/"
+    }
+  },
+  "autoload-dev": {
+      "psr-4": {}
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Bakgul\\LaravelHelpers\\LaravelHelpersServiceProvider"
+      ]
+    }
+  }
+}
