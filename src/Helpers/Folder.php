@@ -2,7 +2,6 @@
 
 namespace Bakgul\LaravelHelpers\Helpers;
 
-use Bakgul\Kernel\Helpers\Convention;
 use Illuminate\Support\Facades\File;
 
 class Folder
