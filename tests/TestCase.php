@@ -3,16 +3,19 @@
 namespace Bakgul\LaravelHelpers\Tests;
 
 use Bakgul\LaravelHelpers\Helpers\Str;
+use Bakgul\LaravelDumpServer\Concerns\HasDumper;
 use Bakgul\LaravelTestsToReadme\ToReadme;
 use Tests\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
+    use HasDumper;
+
     public function setUp(): void
     {
         parent::setUp();
 
-        if (class_exists(\Spatie\LaravelRay\Ray::class)) ray()->clearAll();
+        $this->resetDumper();
     }
 
     public function tearDown(): void

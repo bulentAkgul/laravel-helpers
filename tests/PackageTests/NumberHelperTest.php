@@ -1,6 +1,6 @@
 <?php
 
-namespace Bakgul\LaravelHelpers\Tests\LaravelHelpersTests;
+namespace Bakgul\LaravelHelpers\Tests\PackageTests;
 
 use Bakgul\LaravelHelpers\Helpers\Number;
 use Bakgul\LaravelHelpers\Tests\TestCase;
