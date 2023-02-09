@@ -9,7 +9,8 @@
   ],
   "require": {
     "bakgul/laravel-dump-server": "^1.0.0",
-    "bakgul/laravel-tests-to-readme": "^1.0.0"
+    "bakgul/laravel-tests-to-readme": "^1.0.0",
+    "bakgul/package-base": "^1.0.0"
   },
   "require-dev": {},
   "autoload": {
