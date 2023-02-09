@@ -58,12 +58,12 @@ class FolderHelperTest extends TestCase
 
         $this->assertEquals(
             [
-                '/var/www/html/packages/laravel-helpers/tests/TestBase/a/a.php',
-                '/var/www/html/packages/laravel-helpers/tests/TestBase/a/c/c.php',
-                '/var/www/html/packages/laravel-helpers/tests/TestBase/b/b.php',
-                '/var/www/html/packages/laravel-helpers/tests/TestBase/x.php',
-                '/var/www/html/packages/laravel-helpers/tests/TestBase/y.php',
-                '/var/www/html/packages/laravel-helpers/tests/TestBase/z.php',
+                '/var/www/html/package/tests/TestBase/a/a.php',
+                '/var/www/html/package/tests/TestBase/a/c/c.php',
+                '/var/www/html/package/tests/TestBase/b/b.php',
+                '/var/www/html/package/tests/TestBase/x.php',
+                '/var/www/html/package/tests/TestBase/y.php',
+                '/var/www/html/package/tests/TestBase/z.php',
             ],
             Folder::files(...$args)
         );
@@ -98,17 +98,17 @@ class FolderHelperTest extends TestCase
         $this->assertEquals(
             [
                 'a' => [
-                    'a.php' => '/var/www/html/packages/laravel-helpers/tests/TestBase/a/a.php',
+                    'a.php' => '/var/www/html/package/tests/TestBase/a/a.php',
                     'c' => [
-                        'c.php' => '/var/www/html/packages/laravel-helpers/tests/TestBase/a/c/c.php'
+                        'c.php' => '/var/www/html/package/tests/TestBase/a/c/c.php'
                     ]
                 ],
                 'b' => [
-                    'b.php' => '/var/www/html/packages/laravel-helpers/tests/TestBase/b/b.php'
+                    'b.php' => '/var/www/html/package/tests/TestBase/b/b.php'
                 ],
-                'x.php' => '/var/www/html/packages/laravel-helpers/tests/TestBase/x.php',
-                'y.php' => '/var/www/html/packages/laravel-helpers/tests/TestBase/y.php',
-                'z.php' => '/var/www/html/packages/laravel-helpers/tests/TestBase/z.php',
+                'x.php' => '/var/www/html/package/tests/TestBase/x.php',
+                'y.php' => '/var/www/html/package/tests/TestBase/y.php',
+                'z.php' => '/var/www/html/package/tests/TestBase/z.php',
             ],
             Folder::tree(...$args)
         );
