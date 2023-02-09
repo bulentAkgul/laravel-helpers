@@ -1,13 +1,16 @@
 {
   "name": "bakgul/laravel-helpers",
-  "description": "...",
+  "description": "A package to add helper classes and methods to Laravel",
   "authors": [
     {
       "name": "Bulent Akgul",
       "email": "bulent.akgul@me.com"
     }
   ],
-  "require": {},
+  "require": {
+    "bakgul/laravel-dump-server": "^1.0.0",
+    "bakgul/laravel-tests-to-readme": "^1.0.0"
+  },
   "require-dev": {},
   "autoload": {
     "psr-4": {
