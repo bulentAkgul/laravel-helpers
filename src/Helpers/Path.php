@@ -59,11 +59,11 @@ class Path
     {
         if (file_exists($path)) return;
 
-        $pointer = base_path();
+        $pointer = '';
 
-        foreach (self::serialize($path, true) as $folder) {
+        foreach (self::serialize($path) as $folder) {
 
-            $pointer = Str::append($pointer, $folder);
+            $pointer .= DIRECTORY_SEPARATOR . $folder;
 
             if (file_exists($pointer) || is_file($pointer)) continue;
 
