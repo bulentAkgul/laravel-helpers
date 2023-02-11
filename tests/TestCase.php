@@ -17,6 +17,7 @@ abstract class TestCase extends BaseTestCase
     {
         parent::tearDown();
     }
+    
     protected function toReadme(array $props): void
     {
         (new ToReadme([
