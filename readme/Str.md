@@ -309,13 +309,17 @@ Str::changeTail('one.two.three.four.five', 5, '.', 2);
 ### separateTail
 
 ```php
+WARNINGS:
+- mismatched types
+
 /**
+ * Create an array of head and tail out of path based on the separator and length.
  */
 public static function separateTail(
     string $value = '',
     string $seperator = '/',
     int $length = 1,
-)
+): array
 ```
 
 ```php
@@ -331,9 +335,10 @@ Str::separateTail('one_two_three_four_five', '_', 2);
 
 ```php
 /**
+ * Trim the string with given and default characters
  */
 public static function trim(
-    string $string,
+    string $str,
     string $characters = '',
     bool $append = true,
 ): string
@@ -346,6 +351,16 @@ public static function trim(
 Str::trim(' * one two three.', '*.', true);
 
 // 'one two three'
+```
+
+```php
+// Trim will remove characters from string.
+
+
+Str::trim('  	 --some string . ()
+', '-().');
+
+// 'some string'
 ```
 
 ### format
@@ -376,4 +391,25 @@ Str::format('ucfirst', ['one', 'two', 'three']);
 Str::format('ucfirst', 'one_two-three.four', '-');
 
 // ['One_two', 'Three.four']
+```
+
+### serialize
+
+```php
+WARNINGS:
+- misplaced parameter
+
+/**
+ * Create array out of string.
+ */
+public static function serialize(string $str, string $glue = '/'): array
+```
+
+```php
+// Serialize will create array from string.
+
+
+Str::serialize('one_two/three-four/five.six');
+
+// ['one_two', 'three-four', 'five.six']
 ```

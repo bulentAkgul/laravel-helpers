@@ -76,6 +76,7 @@ Path::contains('sub1/sub2/sub3/sub4', ['sub1', 'sub3']);
 
 ```php
 /**
+ * Creates missing directories on the path.
  */
 public static function complete(string $path): void
 ```
@@ -84,9 +85,7 @@ public static function complete(string $path): void
 // Complete will create missing folders in the given path.
 
 
-Path::complete(
-    '/var/www/html/packages/laravel-helpers/tests/TestBase/sub1/sub2/sub3'
-);
+Path::complete('/var/www/html/package/tests/TestBase/sub1/sub2/sub3');
 
 // 
 ```
@@ -95,6 +94,7 @@ Path::complete(
 
 ```php
 /**
+ * Convert path to array with or without base path.
  */
 public static function serialize(string $path, bool $withoutBase = false): array
 ```
@@ -114,6 +114,7 @@ Path::serialize(
 
 ```php
 /**
+ * Removes base path from the given path.
  */
 public static function baseless(string $path): string
 ```
@@ -125,4 +126,22 @@ public static function baseless(string $path): string
 Path::baseless('/var/www/html/services/user-services');
 
 // 'services/user-services'
+```
+
+### toNamespace
+
+```php
+/**
+ * Convert path tp namespace
+ */
+public static function toNamespace(string|array $path): string
+```
+
+```php
+// To namespace will create a namespace out of path.
+
+
+Path::toNamespace('users/user-services/index-user-services');
+
+// 'Users\UserServices\IndexUserServices'
 ```

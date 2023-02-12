@@ -130,4 +130,20 @@ class PathHelperTest extends TestCase
             Path::baseless($path)
         );
     }
+
+    /** @test */
+    public function to_namespace_will_create_a_namespace_out_of_path(): void
+    {
+        $args = ['users/user-services/index-user-services'];
+
+        $this->toReadme([
+            'method' => 'toNamespace',
+            'args' => $args
+        ]);
+
+        $this->assertEquals(
+            'Users\UserServices\IndexUserServices',
+            Path::toNamespace(...$args)
+        );
+    }
 }

@@ -7,6 +7,17 @@ use Illuminate\Support\Facades\File;
 class Folder
 {
     /**
+     * It returns the folder name from config
+     * 
+     * @param string $folder
+     * @return string
+     */
+    public static function get(string $folder): string
+    {
+        return config("packagify.folders.{$folder}", $folder);
+    }
+
+    /**
      * It returns the list of names of the folders and files on the given path
      * after excluding the items that passed in argument.
      * 
@@ -108,6 +119,14 @@ class Folder
         return file_exists($path) ? File::cleanDirectory($path) : mkdir($path);
     }
 
+    /**
+     * It creates missing folders on the path and add file to the last directory.
+     *
+     * @param string $path
+     * @param string $file
+     * @param string $content
+     * @return void
+     */
     public static function add(string $path, string $file, string $content = ''): void
     {
         Path::complete($path);

@@ -200,7 +200,15 @@ class Str extends BaseStr
         return implode($seperator, array_slice(explode($seperator, $value), 0, -1 * $length));
     }
 
-    public static function separateTail(string $value = '', string $seperator = DIRECTORY_SEPARATOR, int $length = 1)
+    /**
+     * Create an array of head and tail out of path based on the separator and length.
+     *
+     * @param string $value
+     * @param [type] $seperator
+     * @param integer $length
+     * @return array
+     */
+    public static function separateTail(string $value = '', string $seperator = DIRECTORY_SEPARATOR, int $length = 1): array
     {
         return [self::dropTail($value, $seperator, $length), self::getTail($value, $seperator, $length)];
     }
@@ -230,8 +238,28 @@ class Str extends BaseStr
         return array_map(fn ($x) => $method($x), is_string($words) ? explode($glue, $words) : $words);
     }
 
-    public static function trim(string $string, string $characters = '', bool $append = true): string
+    /**
+     * Trim the string with given and default characters 
+     *
+     * @param string $str
+     * @param string $characters
+     * @param boolean $append
+     * @return string
+     */
+    public static function trim(string $str, string $characters = '', bool $append = true): string
     {
-        return trim($string, $characters . ($append ? " ,;\t\n\r" : ""));
+        return trim($str, $characters . ($append ? " ,;\t\n\r" : ""));
+    }
+
+    /**
+     * Create array out of string.
+     *
+     * @param string $value
+     * @param string $glue
+     * @return array
+     */
+    public static function serialize(string $str, string $glue = DIRECTORY_SEPARATOR): array
+    {
+        return explode($glue, $str);
     }
 }

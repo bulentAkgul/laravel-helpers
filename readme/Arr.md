@@ -793,7 +793,7 @@ public static function rand(array $array, int $length = 1): mixed
 
 Arr::rand([1, 2, 3, 4, 5], 1);
 
-// 2
+// 1
 ```
 
 ```php
@@ -802,7 +802,7 @@ Arr::rand([1, 2, 3, 4, 5], 1);
 
 Arr::rand([1, 2, 3, 4, 5], 3);
 
-// [5, 3, 4]
+// [4, 2, 1]
 ```
 
 ### range
@@ -821,7 +821,7 @@ public static function range(int $max, int $min = 0): array
 
 Arr::range(10, 2);
 
-// [2, 3, 4, 5, 6, 7, 8, 9, 10]
+// [2, 3]
 ```
 
 ### resolve

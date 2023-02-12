@@ -262,4 +262,33 @@ class StrHelperTest extends TestCase
 
         $this->assertEquals(['One_two', 'Three.four'], Str::format(...$args));
     }
+
+    /** @test */
+    public function serialize_will_create_array_from_string(): void
+    {
+        $args = ['one_two/three-four/five.six'];
+
+        $this->toReadme([
+            'method' => 'serialize',
+            'args' => $args
+        ]);
+
+        $this->assertEquals(
+            ['one_two', 'three-four', 'five.six'],
+            Str::serialize(...$args)
+        );
+    }
+
+    /** @test */
+    public function trim_will_remove_characters_from_string(): void
+    {
+        $args = ["  \t --some string . ()\n", "-()."];
+
+        $this->toReadme([
+            'method' => 'trim',
+            'args' => $args
+        ]);
+
+        $this->assertEquals('some string', Str::trim(...$args));
+    }
 }

@@ -55,6 +55,12 @@ class Path
         );
     }
 
+    /**
+     * Creates missing directories on the path.
+     *
+     * @param string $path
+     * @return void
+     */
     public static function complete(string $path): void
     {
         if (file_exists($path)) return;
@@ -62,7 +68,6 @@ class Path
         $pointer = '';
 
         foreach (self::serialize($path) as $folder) {
-
             $pointer .= DIRECTORY_SEPARATOR . $folder;
 
             if (file_exists($pointer) || is_file($pointer)) continue;
@@ -71,6 +76,13 @@ class Path
         }
     }
 
+    /**
+     * Convert path to array with or without base path.
+     *
+     * @param string $path
+     * @param boolean $withoutBase
+     * @return array
+     */
     public static function serialize(string $path, bool $withoutBase = false): array
     {
         return explode(
@@ -79,8 +91,28 @@ class Path
         );
     }
 
+    /**
+     * Removes base path from the given path.
+     *
+     * @param string $path
+     * @return string
+     */
     public static function baseless(string $path): string
     {
         return str_replace(base_path() . '/', '', $path);
+    }
+
+    /**
+     * Convert path tp namespace
+     *
+     * @param string|array $path
+     * @return string
+     */
+    public static function toNamespace(string|array $path): string
+    {
+        return implode('\\', array_map(
+            fn ($folder) => Convention::namespace($folder, null),
+            is_array($path) ? $path : array_filter(Str::serialize($path))
+        ));
     }
 }

@@ -1,5 +1,24 @@
 ## Folder
 
+### get
+
+```php
+/**
+ * It returns the folder name from config
+ */
+public static function get(string $folder): string
+```
+
+```php
+// Get will return the folder name from config.
+
+// config('packagify.folders.dummy') == DummyFolder
+
+Folder::get('dummy');
+
+// 'DummyFolder'
+```
+
 ### content
 
 ```php
@@ -14,10 +33,7 @@ public static function content(string $path, array $exclude = []): array
 // Content will return a list of files and directories on a folder.
 
 
-Folder::content(
-    '/var/www/html/packages/laravel-helpers/tests/TestBase', 
-    ['y.php']
-);
+Folder::content('/var/www/html/package/tests/TestBase', ['y.php']);
 
 // ['2' => 'a', '3' => 'b', '4' => 'x.php', '6' => 'z.php']
 ```
@@ -35,10 +51,7 @@ public static function contains(string $path, array|string $name): bool
 // Contains will determine if the searched item is on the folder.
 
 
-Folder::contains(
-    '/var/www/html/packages/laravel-helpers/tests/TestBase', 
-    ['a', 'y.php']
-);
+Folder::contains('/var/www/html/package/tests/TestBase', ['a', 'y.php']);
 
 // true
 ```
@@ -62,9 +75,9 @@ public static function files(
 // Files will return a path list of files on a folder and its subfolders.
 
 
-Folder::files('/var/www/html/packages/laravel-helpers/tests/TestBase');
+Folder::files('/var/www/html/package/tests/TestBase');
 
-// ['/var/www/html/packages/laravel-helpers/tests/TestBase/a/a.php', '/var/www/html/packages/laravel-helpers/tests/TestBase/a/c/c.php', '/var/www/html/packages/laravel-helpers/tests/TestBase/b/b.php', '/var/www/html/packages/laravel-helpers/tests/TestBase/x.php', '/var/www/html/packages/laravel-helpers/tests/TestBase/y.php', '/var/www/html/packages/laravel-helpers/tests/TestBase/z.php']
+// ['/var/www/html/package/tests/TestBase/a/a.php', '/var/www/html/package/tests/TestBase/a/c/c.php', '/var/www/html/package/tests/TestBase/b/b.php', '/var/www/html/package/tests/TestBase/x.php', '/var/www/html/package/tests/TestBase/y.php', '/var/www/html/package/tests/TestBase/z.php']
 ```
 
 ### name
@@ -104,9 +117,9 @@ public static function tree(string $path): array
 // Tree will generate a path list of files in a multidimentional array.
 
 
-Folder::tree('/var/www/html/packages/laravel-helpers/tests/TestBase');
+Folder::tree('/var/www/html/package/tests/TestBase');
 
-// ['a' => ['a.php' => '/var/www/html/packages/laravel-helpers/tests/TestBase/a/a.php', 'c' => ['c.php' => '/var/www/html/packages/laravel-helpers/tests/TestBase/a/c/c.php']], 'b' => ['b.php' => '/var/www/html/packages/laravel-helpers/tests/TestBase/b/b.php'], 'x.php' => '/var/www/html/packages/laravel-helpers/tests/TestBase/x.php', 'y.php' => '/var/www/html/packages/laravel-helpers/tests/TestBase/y.php', 'z.php' => '/var/www/html/packages/laravel-helpers/tests/TestBase/z.php']
+// ['a' => ['a.php' => '/var/www/html/package/tests/TestBase/a/a.php', 'c' => ['c.php' => '/var/www/html/package/tests/TestBase/a/c/c.php']], 'b' => ['b.php' => '/var/www/html/package/tests/TestBase/b/b.php'], 'x.php' => '/var/www/html/package/tests/TestBase/x.php', 'y.php' => '/var/www/html/package/tests/TestBase/y.php', 'z.php' => '/var/www/html/package/tests/TestBase/z.php']
 ```
 
 ### refresh
@@ -122,7 +135,7 @@ public static function refresh(mixed $path): bool
 // Refresh will delete all items in a folder or create one unless it exists.
 
 
-Folder::refresh('/var/www/html/packages/laravel-helpers/tests/TestBase/b');
+Folder::refresh('/var/www/html/package/tests/TestBase/b');
 
 // true
 ```
@@ -131,6 +144,7 @@ Folder::refresh('/var/www/html/packages/laravel-helpers/tests/TestBase/b');
 
 ```php
 /**
+ * It creates missing folders on the path and add file to the last directory.
  */
 public static function add(
     string $path,
@@ -145,7 +159,7 @@ public static function add(
 
 
 Folder::add(
-    '/var/www/html/packages/laravel-helpers/tests/TestBase/new/newer/newest', 
+    '/var/www/html/package/tests/TestBase/new/newer/newest', 
     'x.php', 
     'new x'
 );

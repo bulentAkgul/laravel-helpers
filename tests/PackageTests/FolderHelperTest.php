@@ -18,6 +18,23 @@ class FolderHelperTest extends TestCase
     }
 
     /** @test */
+    public function get_will_return_the_folder_name_from_config(): void
+    {
+        $key = 'dummy';
+        $folder = 'DummyFolder';
+
+        config()->set("packagify.folders.{$key}", $folder);
+
+        $this->toReadme([
+            'message' => "config('packagify.folders.dummy') == DummyFolder",
+            'method' => 'get',
+            'args' => [$key]
+        ]);
+
+        $this->assertEquals($folder, Folder::get($key));
+    }
+
+    /** @test */
     public function content_will_return_a_list_of_files_and_directories_on_a_folder(): void
     {
         $args = [$this->testBase(), ['y.php']];

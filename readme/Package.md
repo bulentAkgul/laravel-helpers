@@ -34,7 +34,7 @@ public static function path(string $name, string $tail = ''): ?string
 
 Package::path('roles');
 
-// '/var/www/html/packages/laravel-helpers/tests/TestBase/packages/core/roles'
+// '/var/www/html/package/tests/TestBase/packages/core/roles'
 ```
 
 ### list
@@ -51,5 +51,5 @@ public static function list(string $root = '', bool $isPath = true): array
 
 Package::list();
 
-// ['/var/www/html/packages/laravel-helpers/tests/TestBase/packages/core/roles', '/var/www/html/packages/laravel-helpers/tests/TestBase/packages/core/users', '/var/www/html/packages/laravel-helpers/tests/TestBase/packages/features/books', '/var/www/html/packages/laravel-helpers/tests/TestBase/packages/features/posts']
+// ['/var/www/html/package/tests/TestBase/packages/core/roles', '/var/www/html/package/tests/TestBase/packages/core/users', '/var/www/html/package/tests/TestBase/packages/features/books', '/var/www/html/package/tests/TestBase/packages/features/posts']
 ```
