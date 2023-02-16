@@ -59,11 +59,13 @@ class Path
      * Creates missing directories on the path.
      *
      * @param string $path
-     * @return void
+     * @return array
      */
-    public static function complete(string $path): void
+    public static function complete(string $path): array
     {
-        if (file_exists($path)) return;
+        $folders = [];
+
+        if (file_exists($path)) return $folders;
 
         $pointer = '';
 
@@ -73,7 +75,11 @@ class Path
             if (file_exists($pointer) || is_file($pointer)) continue;
 
             mkdir($pointer);
+
+            $folders[] = $pointer;
         }
+
+        return $folders;
     }
 
     /**
