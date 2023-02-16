@@ -11,6 +11,7 @@ This package ships helper methods to extend Laravel's support classes.
 
 
 
+
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+This is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
