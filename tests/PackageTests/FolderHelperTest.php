@@ -12,7 +12,7 @@ class FolderHelperTest extends TestCase
     {
         parent::toReadme([
             'class' => Folder::class,
-            'test' => $this->getName(),
+            'test' => debug_backtrace()[1]['function'],
             ...$props
         ]);
     }

@@ -11,7 +11,7 @@ class NumberHelperTest extends TestCase
     {
         parent::toReadme([
             'class' => Number::class,
-            'test' => $this->getName(),
+            'test' => debug_backtrace()[1]['function'],
             ...$props
         ]);
     }

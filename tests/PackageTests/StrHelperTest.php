@@ -11,7 +11,7 @@ class StrHelperTest extends TestCase
     {
         parent::toReadme([
             'class' => Str::class,
-            'test' => $this->getName(),
+            'test' => debug_backtrace()[1]['function'],
             ...$props
         ]);
     }

@@ -11,7 +11,7 @@ class ArrHelperTest extends TestCase
     {
         parent::toReadme([
             'class' => Arr::class,
-            'test' => $this->getName(),
+            'test' => debug_backtrace()[1]['function'],
             ...$props
         ]);
     }

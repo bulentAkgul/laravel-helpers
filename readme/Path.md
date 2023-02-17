@@ -78,7 +78,7 @@ Path::contains('sub1/sub2/sub3/sub4', ['sub1', 'sub3']);
 /**
  * Creates missing directories on the path.
  */
-public static function complete(string $path): void
+public static function complete(string $path): array
 ```
 
 ```php

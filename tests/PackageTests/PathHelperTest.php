@@ -12,7 +12,7 @@ class PathHelperTest extends TestCase
     {
         parent::toReadme([
             'class' => Path::class,
-            'test' => $this->getName(),
+            'test' => debug_backtrace()[1]['function'],
             ...$props
         ]);
     }

@@ -15,7 +15,7 @@ class PackageHelperTest extends TestCase
     {
         parent::toReadme([
             'class' => Package::class,
-            'test' => $this->getName(),
+            'test' => debug_backtrace()[1]['function'],
             'args' => [],
             ...$props
         ]);

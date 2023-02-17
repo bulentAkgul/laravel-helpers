@@ -11,7 +11,7 @@ class PluralizerHelperTest extends TestCase
     {
         parent::toReadme([
             'class' => Pluralizer::class,
-            'test' => $this->getName(),
+            'test' => debug_backtrace()[1]['function'],
             ...$props
         ]);
     }

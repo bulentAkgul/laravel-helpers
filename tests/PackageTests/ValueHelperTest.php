@@ -11,7 +11,7 @@ class ValueHelperTest extends TestCase
     {
         parent::toReadme([
             'class' => Value::class,
-            'test' => $this->getName(),
+            'test' => debug_backtrace()[1]['function'],
             ...$props
         ]);
     }

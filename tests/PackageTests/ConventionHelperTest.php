@@ -11,7 +11,7 @@ class ConventionHelperTest extends TestCase
     {
         parent::toReadme([
             'class' => Convention::class,
-            'test' => $this->getName(),
+            'test' => debug_backtrace()[1]['function'],
             ...$props
         ]);
     }
