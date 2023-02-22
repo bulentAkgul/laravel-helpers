@@ -413,3 +413,60 @@ Str::serialize('one_two/three-four/five.six');
 
 // ['one_two', 'three-four', 'five.six']
 ```
+
+### replaceByMap
+
+```php
+WARNINGS:
+- mismatched types
+
+/**
+ * It uses placeholder as keys to replace them with their associated values in array.
+ */
+public static function replaceByMap(
+    array $map,
+    string $string,
+    bool $append = false,
+    string $glue = '/',
+): string
+```
+
+```php
+// Replace by map will replace placeholders with the map.
+
+
+Str::replaceByMap(
+    '{{ p1 }}{{ p2 }}{{ p1 }}{{ p3 }}', 
+    ['p1' => 'a', 'p2' => 'b', 'p3' => 'c'], 
+    false
+);
+
+// No return value could have been produced.
+```
+
+```php
+// Replace by map will replace placeholders with the map without any glue.
+
+
+Str::replaceByMap(
+    ['p1' => 'a', 'p2' => 'b', 'p3' => 'c'], 
+    '{{ p1 }}{{ p2 }}{{ p1 }}{{ p3 }}', 
+    false
+);
+
+// 'abac'
+```
+
+```php
+// Replace by map will replace placeholders with the map with the given glue.
+
+
+Str::replaceByMap(
+    ['p1' => 'a', 'p2' => 'b', 'p3' => 'c'], 
+    '{{ p1 }}{{ p2 }}{{ p1 }}{{ p3 }}', 
+    true, 
+    '-'
+);
+
+// 'a/-b/-a/-c/-'
+```

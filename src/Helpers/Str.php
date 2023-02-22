@@ -18,6 +18,7 @@ class Str extends BaseStr
     {
         return $base . ($str ? "{$glue}{$str}" : $str);
     }
+
     /**
      * Prepend the string to the base by using glue if string exists.
      * 
@@ -261,5 +262,23 @@ class Str extends BaseStr
     public static function serialize(string $str, string $glue = DIRECTORY_SEPARATOR): array
     {
         return explode($glue, $str);
+    }
+
+    /**
+     * It uses placeholder as keys to replace them with their associated values in array.
+     *
+     * @param array $map
+     * @param string $string
+     * @param boolean $append
+     * @param [type] $glue
+     * @return string
+     */
+    public static function replaceByMap(array $map, string $string, bool $append = false, string $glue = DIRECTORY_SEPARATOR): string
+    {
+        return str_replace(
+            array_map(fn ($x) => "{{ {$x} }}", array_keys($map)),
+            array_map(fn ($x) => $append ? self::append('', $x, $glue) : $x, array_values($map)),
+            $string
+        );
     }
 }

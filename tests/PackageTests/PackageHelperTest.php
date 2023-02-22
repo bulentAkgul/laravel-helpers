@@ -3,11 +3,11 @@
 namespace Bakgul\LaravelHelpers\Tests\PackageTests;
 
 use Bakgul\LaravelHelpers\Helpers\Arr;
+use Bakgul\LaravelHelpers\Helpers\File;
 use Bakgul\LaravelHelpers\Helpers\Package;
 use Bakgul\LaravelHelpers\Helpers\Path;
 use Bakgul\LaravelHelpers\Helpers\Str;
 use Bakgul\LaravelHelpers\Tests\TestCase;
-use Illuminate\Support\Facades\File;
 
 class PackageHelperTest extends TestCase
 {

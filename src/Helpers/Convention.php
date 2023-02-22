@@ -89,6 +89,18 @@ class Convention
     }
 
     /**
+     * It formats the string to plural kebab case.
+     *
+     * @param string $value
+     * @param boolean|null $isSingular
+     * @return string
+     */
+    public static function route(string $value, ?bool $isSingular = false): string
+    {
+        return $value ? self::kebab($value, $isSingular) : '';
+    }
+
+    /**
      * It formats the string to specified case, which is pascal by default.
      * 
      * @param string $value
@@ -96,7 +108,6 @@ class Convention
      * 
      * @return array|string
      */
-
     public static function folder(string $value, string $case = "pascal", bool $isSingular = null): string
     {
         return $value ? self::convert($value, $case, $isSingular) : '';
@@ -111,7 +122,6 @@ class Convention
      * 
      * @return array|string
      */
-
     public static function convert(string $value, string $case = null, bool $isSingular = null): string
     {
         if (!$value) return $value;

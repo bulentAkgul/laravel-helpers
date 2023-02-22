@@ -291,4 +291,29 @@ class StrHelperTest extends TestCase
 
         $this->assertEquals('some string', Str::trim(...$args));
     }
+
+    /** @test */
+    public function replace_by_map_will_replace_placeholders_with_the_map(): void
+    {
+        $args = [
+            ['p1' =>  'a', 'p2' =>  'b', 'p3' =>  'c'],
+            '{{ p1 }}{{ p2 }}{{ p1 }}{{ p3 }}',
+        ];
+
+        $this->toReadme([
+            'test' => 'replace_by_map_will_replace_placeholders_with_the_map_without_any_glue',
+            'method' => 'replaceByMap',
+            'args' => $a = [...$args, false]
+        ]);
+
+        $this->assertEquals('abac', Str::replaceByMap(...$a));
+
+        $this->toReadme([
+            'test' => 'replace_by_map_will_replace_placeholders_with_the_map_with_the_given_glue',
+            'method' => 'replaceByMap',
+            'args' => $a = [...$args, true, '-']
+        ]);
+
+        $this->assertEquals('-a-b-a-c', Str::replaceByMap(...$a));
+    }
 }

@@ -2,9 +2,9 @@
 
 namespace Bakgul\LaravelHelpers\Tests\PackageTests;
 
+use Bakgul\LaravelHelpers\Helpers\File;
 use Bakgul\LaravelHelpers\Helpers\Path;
 use Bakgul\LaravelHelpers\Tests\TestCase;
-use Illuminate\Support\Facades\File;
 
 class PathHelperTest extends TestCase
 {

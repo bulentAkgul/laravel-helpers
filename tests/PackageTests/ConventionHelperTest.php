@@ -134,6 +134,19 @@ class ConventionHelperTest extends TestCase
     }
 
     /** @test */
+    public function convention_will_format_string_to_the_plural_kebab_case(): void
+    {
+        $name = 'UserService';
+
+        $this->toReadme([
+            'method' => 'route',
+            'args' => [$name],
+        ]);
+
+        $this->assertEquals('user-services', Convention::route($name));
+    }
+
+    /** @test */
     public function folder_will_convert_string_to_the_pascal_case_as_default(): void
     {
         $name = 'user-services';

@@ -4,7 +4,6 @@ namespace Bakgul\LaravelHelpers\Tests\PackageTests;
 
 use Bakgul\LaravelHelpers\Helpers\Folder;
 use Bakgul\LaravelHelpers\Tests\TestCase;
-use Illuminate\Support\Facades\File;
 
 class FolderHelperTest extends TestCase
 {
@@ -152,32 +151,5 @@ class FolderHelperTest extends TestCase
         $this->assertEmpty($after);
 
         file_put_contents("{$path}/b.php", '');
-    }
-
-    /** @test */
-    public function add_fill_create_a_file_in_a_given_folder_after_creating_missing_folders_on_the_path(): void
-    {
-        $args = [
-            $this->testBase('new/newer/newest'),
-            'x.php',
-            'new x'
-        ];
-
-        $this->assertDirectoryDoesNotExist($this->testBase('new'));
-
-        $this->toReadme([
-            'method' => 'add',
-            'args' => $args
-        ]);
-
-        Folder::add(...$args);
-
-        $file = "{$args[0]}/{$args[1]}";
-
-        $this->assertFileExists($file);
-
-        $this->assertEquals($args[2], file_get_contents($file));
-
-        File::deleteDirectory($this->testBase('new'));
     }
 }

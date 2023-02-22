@@ -2,7 +2,7 @@
 
 namespace Bakgul\LaravelHelpers\Helpers;
 
-use Illuminate\Support\Facades\File;
+use Bakgul\LaravelHelpers\Helpers\File;
 
 class Folder
 {
@@ -117,21 +117,6 @@ class Folder
     public static function refresh($path)
     {
         return file_exists($path) ? File::cleanDirectory($path) : mkdir($path);
-    }
-
-    /**
-     * It creates missing folders on the path and add file to the last directory.
-     *
-     * @param string $path
-     * @param string $file
-     * @param string $content
-     * @return void
-     */
-    public static function add(string $path, string $file, string $content = ''): void
-    {
-        Path::complete($path);
-
-        file_put_contents(Path::glue([$path, $file]), $content);
     }
 
     private static function removeExtraSeperator(string $path): string

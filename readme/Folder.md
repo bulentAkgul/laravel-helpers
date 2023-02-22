@@ -139,30 +139,3 @@ Folder::refresh('/var/www/html/package/tests/TestBase/b');
 
 // true
 ```
-
-### add
-
-```php
-/**
- * It creates missing folders on the path and add file to the last directory.
- */
-public static function add(
-    string $path,
-    string $file,
-    string $content = '',
-): void
-```
-
-```php
-// Add fill create a file in a given folder after creating missing folders on
-// the path.
-
-
-Folder::add(
-    '/var/www/html/package/tests/TestBase/new/newer/newest', 
-    'x.php', 
-    'new x'
-);
-
-// null
-```
