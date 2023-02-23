@@ -22,13 +22,25 @@ class Folder
      * after excluding the items that passed in argument.
      * 
      * @param string $path
-     * @param array $exclude
+     * @param array $except
      * 
      * @return array
      */
-    public static function content(string $path, array $exclude = []): array
+    public static function content(string $path, array $except = []): array
     {
-        return file_exists($path) ? array_diff(scandir($path), array_merge(['.', '..'], $exclude)) : [];
+        return file_exists($path) ? array_diff(scandir($path), array_merge(['.', '..'], $except)) : [];
+    }
+
+    /**
+     * It determines if the folder is empty.
+     *
+     * @param string $path
+     * @param array $except
+     * @return boolean
+     */
+    public static function isEmpty(string $path, array $except = []): bool
+    {
+        return empty(array_diff(parent::content($path), $except));
     }
 
     /**

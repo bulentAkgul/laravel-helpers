@@ -86,6 +86,44 @@ class FolderHelperTest extends TestCase
     }
 
     /** @test */
+    public function is_empty_will_check_if_the_folder_is_empty(): void
+    {
+        $dir = $this->testBase('empty-dir');
+        $args = [$dir];
+
+        mkdir($dir);
+
+        $this->toReadme([
+            'method' => 'isEmpty',
+            'args' => $args,
+        ]);
+
+        $this->assertTrue(Folder::isEmpty($dir));
+
+        rmdir($dir);
+
+        $dir = $this->testBase('not-empty-dir');
+        $file = $dir . DIRECTORY_SEPARATOR . 'file.txt';
+        
+        $args = [$dir, ['file.txt']];
+
+        mkdir($dir);
+        file_put_contents($file, '');
+
+        $this->toReadme([
+            'message' => 'not-empty-dir contains only file.txt and therefore, it is empty except file.txt.'
+            'method' => 'isEmpty',
+            'args' => $args,
+        ]);
+
+        $this->assertFalse(Folder::isEmpty($dir));
+        $this->assertTrue(Folder::isEmpty(...$args));
+
+        unlink($file);
+        rmdir($dir);
+    }
+
+    /** @test */
     public function name_will_create_a_folder_name_with_given_parts_by_converting_them(): void
     {
         $args = ['user', 'service', 'authenticated', false];
