@@ -460,6 +460,19 @@ class Arr extends BaseArray
     }
 
     /**
+     * Creates an assosiative array out of the keys of the given array and the plucked
+     * values from the same array.
+     *
+     * @param array $array
+     * @param string $keys
+     * @return array
+     */
+    public static function pluckAssoc(array $array, string $keys): array
+    {
+        return self::combine(array_keys($array), parent::pluck($array, $keys));
+    }
+
+    /**
      * It returns an item or an array of items that selected
      * randomly from the array.
      * 

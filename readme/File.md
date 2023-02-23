@@ -27,6 +27,20 @@ File::create(
 // null
 ```
 
+```php
+// Create will create a file with the given content after creating missing
+// folders on the path.
+
+
+File::create(
+    '/var/www/html/package/tests/TestBase/new/newer/newest', 
+    'x.php', 
+    'new x'
+);
+
+// a new file created.
+```
+
 ### read
 
 ```php

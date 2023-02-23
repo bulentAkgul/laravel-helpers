@@ -17,7 +17,7 @@ class FileHelperTest extends TestCase
     }
 
     /** @test */
-    public function create_fill_create_a_file_with_the_given_content_after_creating_missing_folders_on_the_path(): void
+    public function create_will_create_a_file_with_the_given_content_after_creating_missing_folders_on_the_path(): void
     {
         $args = [
             $this->testBase('new/newer/newest'),
@@ -29,7 +29,8 @@ class FileHelperTest extends TestCase
 
         $this->toReadme([
             'method' => 'create',
-            'args' => $args
+            'args' => $args,
+            'result' => 'a new file created.'
         ]);
 
         File::create(...$args);

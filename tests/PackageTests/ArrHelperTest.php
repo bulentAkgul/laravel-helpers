@@ -823,6 +823,26 @@ class ArrHelperTest extends TestCase
     }
 
     /** @test */
+    public function pluck_assoc_will_create_an_associative_array_out_of_given_array_and_plucked_values(): void
+    {
+        $args = [
+            [
+                'a' => ['x' => ['m' => 1, 'n' => 2], 'y' => ['m' => 3, 'n' => 4]],
+                'b' => ['x' => ['m' => 5, 'n' => 6], 'y' => ['m' => 7, 'n' => 8]],
+                'c' => ['x' => ['m' => 9, 'n' => 10], 'y' => ['m' => 11, 'n' => 12]],
+            ],
+            'x.n'
+        ];
+
+        $this->toReadme([
+            'method' => 'pluckAssoc',
+            'args' => $args
+        ]);
+
+        $this->assertEquals(['a' => 2, 'b' => 6, 'c' => 10], Arr::pluckAssoc(...$args));
+    }
+
+    /** @test */
     public function rand_will_return_a_randomly_selected_item_from_array(): void
     {
         $args = [[1, 2, 3, 4, 5], 1];
