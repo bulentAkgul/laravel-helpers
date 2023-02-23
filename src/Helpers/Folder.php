@@ -40,7 +40,7 @@ class Folder
      */
     public static function isEmpty(string $path, array $except = []): bool
     {
-        return empty(array_diff(parent::content($path), $except));
+        return empty(array_diff(self::content($path), $except));
     }
 
     /**
