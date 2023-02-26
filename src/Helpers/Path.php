@@ -148,6 +148,6 @@ class Path
 
     private static function getBase(): string
     {
-        return function_exists('base_path') ? base_path() : self::fallbackBase();
+        return method_exists(app(), 'basePath') ? base_path() : self::fallbackBase();
     }
 }
