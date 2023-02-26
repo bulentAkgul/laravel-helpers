@@ -22,13 +22,17 @@ class Folder
      * after excluding the items that passed in argument.
      * 
      * @param string $path
-     * @param array $except
+     * @param array|callable $except
      * 
      * @return array
      */
-    public static function content(string $path, array $except = []): array
+    public static function content(string $path, array|callable $except = []): array
     {
-        return file_exists($path) ? array_diff(scandir($path), array_merge(['.', '..'], $except)) : [];
+        $content = file_exists($path) ? array_diff(scandir($path), ['.', '..']) : [];
+
+        if (!$content) return $content;
+
+        return is_callable($except) ? Arr::where($content, $except) : array_diff($content, $except);
     }
 
     /**
