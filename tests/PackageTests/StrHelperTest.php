@@ -66,6 +66,8 @@ class StrHelperTest extends TestCase
         ]);
 
         $this->assertEquals("{str}", Str::enclose(...$args));
+
+        $this->assertEquals("/str/", Str::enclose('str', 'DS'));
     }
 
     /** @test */

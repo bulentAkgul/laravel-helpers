@@ -417,9 +417,6 @@ Str::serialize('one_two/three-four/five.six');
 ### replaceByMap
 
 ```php
-WARNINGS:
-- mismatched types
-
 /**
  * It uses placeholder as keys to replace them with their associated values in array.
  */

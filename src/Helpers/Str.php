@@ -68,7 +68,9 @@ class Str extends BaseStr
             '{' => ['{', '}'],
             '(' => ['(', ')'],
             '[' => ['[', ']'],
-            '<' => ['<', '>']
+            '<' => ['<', '>'],
+            'EL' => [PHP_EOL, PHP_EOL],
+            'DS' => [DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR],
         ][$glue] ?? [$glue, $glue];
 
         return "{$glue[0]}{$str}{$glue[1]}";
@@ -270,7 +272,7 @@ class Str extends BaseStr
      * @param array $map
      * @param string $string
      * @param boolean $append
-     * @param [type] $glue
+     * @param string $glue
      * @return string
      */
     public static function replaceByMap(array $map, string $string, bool $append = false, string $glue = DIRECTORY_SEPARATOR): string
