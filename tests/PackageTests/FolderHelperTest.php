@@ -104,14 +104,14 @@ class FolderHelperTest extends TestCase
 
         $dir = $this->testBase('not-empty-dir');
         $file = $dir . DIRECTORY_SEPARATOR . 'file.txt';
-        
+
         $args = [$dir, ['file.txt']];
 
         mkdir($dir);
         file_put_contents($file, '');
 
         $this->toReadme([
-            'message' => 'not-empty-dir contains only file.txt and therefore, it is empty except file.txt.'
+            'message' => 'not-empty-dir contains only file.txt and therefore, it is empty except file.txt.',
             'method' => 'isEmpty',
             'args' => $args,
         ]);

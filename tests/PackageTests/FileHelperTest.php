@@ -62,5 +62,6 @@ class FileHelperTest extends TestCase
         $this->assertEquals(["new x\n", 'new y'], File::read(...$a));
 
         File::delete($a[0]);
+        rmdir($this->testBase('new'));
     }
 }
