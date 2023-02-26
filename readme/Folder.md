@@ -26,7 +26,7 @@ Folder::get('dummy');
  * It returns the list of names of the folders and files on the given path
  * after excluding the items that passed in argument.
  */
-public static function content(string $path, array $exclude = []): array
+public static function content(string $path, array|callable $except = []): array
 ```
 
 ```php
@@ -136,6 +136,24 @@ public static function refresh(mixed $path): bool
 
 
 Folder::refresh('/var/www/html/package/tests/TestBase/b');
+
+// true
+```
+
+### isEmpty
+
+```php
+/**
+ * It determines if the folder is empty.
+ */
+public static function isEmpty(string $path, array $except = []): bool
+```
+
+```php
+// Is empty will check if the folder is empty.
+
+
+Folder::isEmpty('/var/www/html/package/tests/TestBase/empty-dir');
 
 // true
 ```

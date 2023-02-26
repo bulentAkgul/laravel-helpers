@@ -956,3 +956,26 @@ Arr::value(
 
 // ['d' => 7, 'e' => 8]
 ```
+
+### pluckAssoc
+
+```php
+/**
+ * Creates an assosiative array out of the keys of the given array and the plucked
+ * values from the same array.
+ */
+public static function pluckAssoc(array $array, string $keys): array
+```
+
+```php
+// Pluck assoc will create an associative array out of given array and plucked
+// values.
+
+
+Arr::pluckAssoc(
+    ['a' => ['x' => ['m' => 1, 'n' => 2], 'y' => ['m' => 3, 'n' => 4]], 'b' => ['x' => ['m' => 5, 'n' => 6], 'y' => ['m' => 7, 'n' => 8]], 'c' => ['x' => ['m' => 9, 'n' => 10], 'y' => ['m' => 11, 'n' => 12]]], 
+    'x.n'
+);
+
+// ['a' => 2, 'b' => 6, 'c' => 10]
+```
