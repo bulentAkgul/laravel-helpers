@@ -5,7 +5,7 @@ namespace Bakgul\LaravelHelpers\Helpers;
 class Path
 {
     /**
-     * Create path from an array and append it to base path.
+     * Create path from an array and base path.
      * 
      * @param array $parts
      * @param string $glue
@@ -13,7 +13,31 @@ class Path
      */
     public static function base(array $parts, string $glue = DIRECTORY_SEPARATOR): string
     {
-        return base_path(self::glue($parts, $glue));
+        return self::glue([self::getBase(), ...$parts], $glue);
+    }
+
+    /**
+     * Remove base path from the given path.
+     *
+     * @param string $path
+     * @param string $base
+     * @return string
+     */
+    public static function baseless(string $path, string $base = ''): string
+    {
+        $base = $base ?: self::getBase();
+
+        return str_replace($base . DIRECTORY_SEPARATOR, '', $path);
+    }
+
+    /**
+     * It will return base path even if the helper method base_path() is not ready
+     *
+     * @return string
+     */
+    public static function fallbackBase(): string
+    {
+        return dirname(__DIR__, self::isVendor() ? 5 : 3);
     }
 
     /**
@@ -63,13 +87,13 @@ class Path
      */
     public static function complete(string $path): array
     {
+        if (file_exists($path)) return [];
+
         $folders = [];
 
-        if (file_exists($path)) return $folders;
+        $pointer = self::getBase();
 
-        $pointer = '';
-
-        foreach (self::serialize($path) as $folder) {
+        foreach (self::serialize(self::baseless($path, $pointer)) as $folder) {
             $pointer .= DIRECTORY_SEPARATOR . $folder;
 
             if (file_exists($pointer) || is_file($pointer)) continue;
@@ -79,7 +103,18 @@ class Path
             $folders[] = $pointer;
         }
 
-        return $folders;
+        return array_reverse($folders);
+    }
+
+    /**
+     * Determine if the given path or this file's path is a vendor path.
+     *
+     * @param string $path
+     * @return boolean
+     */
+    public static function isVendor(string $path = ''): bool
+    {
+        return str_contains($path ?: __DIR__, Str::enclose('vendor', 'DS'));
     }
 
     /**
@@ -98,17 +133,6 @@ class Path
     }
 
     /**
-     * Removes base path from the given path.
-     *
-     * @param string $path
-     * @return string
-     */
-    public static function baseless(string $path): string
-    {
-        return str_replace(base_path() . '/', '', $path);
-    }
-
-    /**
      * Convert path tp namespace
      *
      * @param string|array $path
@@ -120,5 +144,10 @@ class Path
             fn ($folder) => Convention::namespace($folder, null),
             is_array($path) ? $path : array_filter(Str::serialize($path))
         ));
+    }
+
+    private static function getBase(): string
+    {
+        return function_exists('base_path') ? base_path() : self::fallbackBase();
     }
 }

@@ -4,7 +4,7 @@
 
 ```php
 /**
- * Create path from an array and append it to base path.
+ * Create path from an array and base path.
  */
 public static function base(array $parts, string $glue = '/'): string
 ```
@@ -114,9 +114,9 @@ Path::serialize(
 
 ```php
 /**
- * Removes base path from the given path.
+ * Remove base path from the given path.
  */
-public static function baseless(string $path): string
+public static function baseless(string $path, string $base = ''): string
 ```
 
 ```php
@@ -144,4 +144,51 @@ public static function toNamespace(string|array $path): string
 Path::toNamespace('users/user-services/index-user-services');
 
 // 'Users\UserServices\IndexUserServices'
+```
+
+### fallbackBase
+
+```php
+/**
+ * It will return base path even if the helper method base_path() is not ready
+ */
+public static function fallbackBase(): string
+```
+
+```php
+// Fallback base will return the base path without using base path helper.
+
+
+Path::fallbackBase();
+
+// '/var/www/html'
+```
+
+### isVendor
+
+```php
+/**
+ * Determine if the given path or this file's path is a vendor path.
+ */
+public static function isVendor(string $path = ''): bool
+```
+
+```php
+// Is vendor will check if the given path is a vendor path.
+
+
+Path::isVendor(
+    'something/that/has/vendor/wrapped/with/directory/separators'
+);
+
+// true
+```
+
+```php
+// Is vendor will check if its class in vendor path when no path is provided.
+
+
+Path::isVendor();
+
+// false
 ```

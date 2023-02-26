@@ -132,6 +132,42 @@ class PathHelperTest extends TestCase
     }
 
     /** @test */
+    public function fallback_base_will_return_the_base_path_without_using_base_path_helper(): void
+    {
+        $this->toReadme([
+            'method' => 'fallbackBase',
+            'args' => []
+        ]);
+
+        $this->assertEquals(
+            base_path(),
+            Path::fallbackBase()
+        );
+    }
+
+    /** @test */
+    public function is_vendor_will_determine_if_the_path_is_vendor_path(): void
+    {
+        $path = 'something/that/has/vendor/wrapped/with/directory/separators';
+
+        $this->toReadme([
+            'test' => 'is_vendor_will_check_if_the_given_path_is_a_vendor_path',
+            'method' => 'isVendor',
+            'args' => [$path]
+        ]);
+
+        $this->assertTrue(Path::isVendor($path));
+
+        $this->toReadme([
+            'test' => 'is_vendor_will_check_if_its_class_in_vendor_path_when_no_path_is_provided',
+            'method' => 'isVendor',
+            'args' => []
+        ]);
+
+        $this->assertFalse(Path::isVendor());
+    }
+
+    /** @test */
     public function to_namespace_will_create_a_namespace_out_of_path(): void
     {
         $args = ['users/user-services/index-user-services'];
