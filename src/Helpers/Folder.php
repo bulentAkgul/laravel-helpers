@@ -132,7 +132,7 @@ class Folder
      */
     public static function refresh($path)
     {
-        return file_exists($path) ? File::cleanDirectory($path) : mkdir($path);
+        return file_exists($path) ? File::cleanDirectory($path) : Path::complete($path);
     }
 
     private static function removeExtraSeperator(string $path): string

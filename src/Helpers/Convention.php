@@ -122,9 +122,11 @@ class Convention
      * 
      * @return array|string
      */
-    public static function convert(string $value, string $case = null, bool $isSingular = null): string
+    public static function convert(string $value, string $case = null, bool|string $isSingular = null): string
     {
         if (!$value) return $value;
+
+        $isSingular = is_string($isSingular) ? Pluralizer::set($isSingular) : $isSingular;
 
         $case = $case ?? self::case($value);
 

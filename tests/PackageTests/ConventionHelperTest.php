@@ -170,6 +170,8 @@ class ConventionHelperTest extends TestCase
         ]);
 
         $this->assertEquals('userService', Convention::convert(...$args));
+
+        $this->assertEquals('userServices', Convention::convert('user-service', 'camel', 'P'));
     }
 
     /** @test */

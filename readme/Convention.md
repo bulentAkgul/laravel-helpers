@@ -176,13 +176,16 @@ Convention::affix('user-services');
 ### convert
 
 ```php
+WARNINGS:
+- mismatched type count
+
 /**
  * It formats the string to the specified case.
  */
 public static function convert(
     string $value,
     ?string $case = null,
-    ?bool $isSingular = null,
+    string|bool|null $isSingular = null,
 ): string
 ```
 
