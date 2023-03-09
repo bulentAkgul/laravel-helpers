@@ -17,11 +17,15 @@ class File
     /**
      * It creates missing folders on the path and create file on the last directory.
      */
-    public static function create(string $path, string $file, string $content = ''): void
+    public static function create(string $path, string $file, string $content = ''): string
     {
         Path::complete($path);
 
-        file_put_contents(Path::glue([$path, $file]), $content);
+        $file = Path::glue([$path, $file]);
+
+        file_put_contents($file, $content);
+
+        return $file;
     }
 
     /**

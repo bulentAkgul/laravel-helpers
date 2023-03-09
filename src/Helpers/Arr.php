@@ -163,6 +163,8 @@ class Arr extends BaseArray
      */
     public static function containsAt(array $array, string $search): ?int
     {
+        if (!$array || !$search) return null;
+
         foreach ($array as $i => $item) {
             if (str_contains($item, $search)) return $i;
         }
