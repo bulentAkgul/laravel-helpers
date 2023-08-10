@@ -19,6 +19,6 @@ abstract class TestCase extends BaseTestCase
 
     protected function testBase(string $path = ''): string
     {
-        return Str::append(__DIR__ . '/TestBase', $path);
+        return Str::append(__DIR__ . DIRECTORY_SEPARATOR . 'TestBase', $path);
     }
 }
