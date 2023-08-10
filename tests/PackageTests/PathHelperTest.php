@@ -89,12 +89,36 @@ class PathHelperTest extends TestCase
         $this->toReadme([
             'method' => 'complete',
             'args' => [$path],
-            'result' => ''
+            'result' => 'sub1, sub2, and sub3 have been created.'
         ]);
 
         Path::complete($path);
 
         $this->assertDirectoryExists($path);
+
+        File::deleteDirectory($this->testBase('sub1'));
+    }
+
+    /** @test */
+    public function complete_will_create_missing_folders_in_the_given_path_and_its_children(): void
+    {
+        $path = $this->testBase('sub1/sub2/sub3');
+        $children = ['sub4', 'sub5/sub6'];
+
+        $this->toReadme([
+            'method' => 'complete',
+            'args' => [$path, $children],
+            'result' => implode("\n", [
+                'The missing folders on the following paths have been created:',
+                "//     {$path}/{$children[0]}",
+                "//     {$path}/{$children[1]}",
+            ])
+        ]);
+
+        Path::complete($path, $children);
+
+        $this->assertDirectoryExists("{$path}/{$children[0]}");
+        $this->assertDirectoryExists("{$path}/{$children[1]}");
 
         File::deleteDirectory($this->testBase('sub1'));
     }

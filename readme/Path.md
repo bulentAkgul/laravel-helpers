@@ -78,7 +78,7 @@ Path::contains('sub1/sub2/sub3/sub4', ['sub1', 'sub3']);
 /**
  * Creates missing directories on the path.
  */
-public static function complete(string $path): array
+public static function complete(string $path, array $children = []): array
 ```
 
 ```php
@@ -87,7 +87,21 @@ public static function complete(string $path): array
 
 Path::complete('/var/www/html/package/tests/TestBase/sub1/sub2/sub3');
 
-// 
+// sub1, sub2, and sub3 have been created.
+```
+
+```php
+// Complete will create missing folders in the given path and its children.
+
+
+Path::complete(
+    '/var/www/html/package/tests/TestBase/sub1/sub2/sub3', 
+    ['sub4', 'sub5/sub6']
+);
+
+// The missing folders on the following paths have been created:
+//     /var/www/html/package/tests/TestBase/sub1/sub2/sub3/sub4
+//     /var/www/html/package/tests/TestBase/sub1/sub2/sub3/sub5/sub6
 ```
 
 ### serialize

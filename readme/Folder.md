@@ -1,5 +1,24 @@
 ## Folder
 
+### make
+
+```php
+/**
+ * It will create a directory on given path.
+ */
+public static function make(string $path): string
+```
+
+```php
+// Make will make a directory for the given path.
+
+
+Folder::make('/var/www/html/package/tests/TestBase/new_dir');
+
+// new_dir has been created under TestBase.
+// To create multiple directories use Path::complete()
+```
+
 ### get
 
 ```php
