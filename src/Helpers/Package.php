@@ -2,8 +2,6 @@
 
 namespace Bakgul\LaravelHelpers\Helpers;
 
-use Bakgul\Kernel\Helpers\Arr;
-
 class Package
 {
     public static function container(): string
@@ -13,6 +11,8 @@ class Package
 
     public static function path(string $name, string $tail = ''): ?string
     {
+        if (!$name) return null;
+
         $container = self::container();
 
         foreach (Folder::content($container) as $folder) {

@@ -7,6 +7,21 @@ use Bakgul\LaravelHelpers\Helpers\File;
 class Folder
 {
     /**
+     * It will create a directory on given path.
+     *
+     * @param string $path
+     * @return string
+     */
+    public static function make(string $path): string
+    {
+        if (file_exists($path) || is_file($path)) return '';
+
+        mkdir($path);
+
+        return $path;
+    }
+
+    /**
      * It returns the folder name from config
      * 
      * @param string $folder
@@ -85,7 +100,7 @@ class Folder
         return match (true) {
             is_null($callback) => $paths,
             is_callable($callback) => array_filter($paths, $callback),
-            default => array_filter(array_map(fn ($x) => Path::contains($x, $callback), $paths))
+            default => array_filter($paths, fn ($x) => Path::contains($x, $callback))
         };
     }
 

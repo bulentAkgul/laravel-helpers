@@ -83,9 +83,10 @@ class Path
      * Creates missing directories on the path.
      *
      * @param string $path
+     * @param array $children
      * @return array
      */
-    public static function complete(string $path): array
+    public static function complete(string $path, array $children = []): array
     {
         if (file_exists($path)) return [];
 
@@ -96,14 +97,22 @@ class Path
         foreach (self::serialize(self::baseless($path, $pointer)) as $folder) {
             $pointer .= DIRECTORY_SEPARATOR . $folder;
 
-            if (file_exists($pointer) || is_file($pointer)) continue;
-
-            mkdir($pointer);
-
-            $folders[] = $pointer;
+            $folders[] = Folder::make($pointer);
         }
 
-        return array_reverse($folders);
+        if (is_file($pointer)) return $folders;
+
+        foreach ($children as $child) {
+            $folder = $pointer . DIRECTORY_SEPARATOR . $child;
+
+            if (str_contains($child, DIRECTORY_SEPARATOR)) {
+                $folders = [...$folders, ...self::complete($folder)];
+            } else {
+                $folders[] = Folder::make($pointer . DIRECTORY_SEPARATOR . $child);
+            }
+        }
+
+        return array_reverse(array_filter($folders));
     }
 
     /**

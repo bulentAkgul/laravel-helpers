@@ -2,6 +2,7 @@
 
 namespace Bakgul\LaravelHelpers\Tests\PackageTests;
 
+use Bakgul\LaravelHelpers\Helpers\File;
 use Bakgul\LaravelHelpers\Helpers\Folder;
 use Bakgul\LaravelHelpers\Tests\TestCase;
 
@@ -14,6 +15,24 @@ class FolderHelperTest extends TestCase
             'test' => debug_backtrace()[1]['function'],
             ...$props
         ]);
+    }
+
+    /** @test */
+    public function make_will_make_a_directory_for_the_given_path(): void
+    {
+        $path = $this->testBase('new_dir');
+
+        $this->toReadme([
+            'method' => 'make',
+            'args' => [$path],
+            'result' => 'new_dir has been created under TestBase.' . "\n// To create multiple directories use Path::complete()"
+        ]);
+
+        Folder::make($path);
+
+        $this->assertDirectoryExists($path);
+
+        File::deleteDirectory($path);
     }
 
     /** @test */
