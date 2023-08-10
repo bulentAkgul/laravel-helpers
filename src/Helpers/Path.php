@@ -88,8 +88,6 @@ class Path
      */
     public static function complete(string $path, array $children = []): array
     {
-        if (file_exists($path)) return [];
-
         $folders = [];
 
         $pointer = self::getBase();
