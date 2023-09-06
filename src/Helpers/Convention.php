@@ -130,7 +130,7 @@ class Convention
 
         $case = $case ?? self::case($value);
 
-        return self::$case($value, $isSingular, false);
+        return self::$case(Str::kebab($value), $isSingular, false);
     }
 
     /**
