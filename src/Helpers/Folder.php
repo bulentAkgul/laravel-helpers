@@ -120,6 +120,34 @@ class Folder
     }
 
     /**
+     * It will return all paths on a directory including files and empty folders.
+     *
+     * @param string $path
+     * @param array|callable|string|null $callback
+     * @return array
+     */
+    public static function paths(string $path, array|callable|string $callback = null): array
+    {
+        $paths = [];
+
+        foreach (self::content($path) as $item) {
+            $itemPath = Path::glue([$path, $item]);
+
+            $paths[] = $itemPath;
+
+            if (is_dir($itemPath)) {
+                $paths = array_merge($paths, self::paths($itemPath));
+            }
+        }
+
+        return match (true) {
+            is_null($callback) => $paths,
+            is_callable($callback) => array_filter($paths, $callback),
+            default => array_filter($paths, fn ($x) => Path::contains($x, $callback))
+        };
+    }
+
+    /**
      * It creates a file/folder structure of the specified folder
      * and its subfolders in a nested associative array.
      * 

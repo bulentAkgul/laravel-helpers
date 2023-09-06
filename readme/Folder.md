@@ -176,3 +176,25 @@ Folder::isEmpty('/var/www/html/package/tests/TestBase/empty-dir');
 
 // true
 ```
+
+### paths
+
+```php
+/**
+ * It will return all paths on a directory including files and empty folders.
+ */
+public static function paths(
+    string $path,
+    array|callable|string|null $callback = null,
+): array
+```
+
+```php
+// Paths will return a path list of files and empty folders on a directory and
+// its subdirectories.
+
+
+Folder::paths('/var/www/html/package/tests/TestBase');
+
+// ['/var/www/html/package/tests/TestBase/a', '/var/www/html/package/tests/TestBase/a/a.php', '/var/www/html/package/tests/TestBase/a/c', '/var/www/html/package/tests/TestBase/a/c/c.php', '/var/www/html/package/tests/TestBase/b', '/var/www/html/package/tests/TestBase/b/b.php', '/var/www/html/package/tests/TestBase/empty1', '/var/www/html/package/tests/TestBase/empty1/sub-empty', '/var/www/html/package/tests/TestBase/empty2', '/var/www/html/package/tests/TestBase/x.php', '/var/www/html/package/tests/TestBase/y.php', '/var/www/html/package/tests/TestBase/z.php']
+```
