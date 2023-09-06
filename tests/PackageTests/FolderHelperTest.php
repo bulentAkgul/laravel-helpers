@@ -4,6 +4,7 @@ namespace Bakgul\LaravelHelpers\Tests\PackageTests;
 
 use Bakgul\LaravelHelpers\Helpers\File;
 use Bakgul\LaravelHelpers\Helpers\Folder;
+use Bakgul\LaravelHelpers\Helpers\Path;
 use Bakgul\LaravelHelpers\Tests\TestCase;
 
 class FolderHelperTest extends TestCase
@@ -102,6 +103,41 @@ class FolderHelperTest extends TestCase
             ],
             Folder::files(...$args)
         );
+    }
+
+    /** @test */
+    public function paths_will_return_a_path_list_of_files_and_empty_folders_on_a_directory_and_its_subdirectories(): void
+    {
+        $args = [$this->testBase()];
+
+        $empties = ['empty1', 'empty2', 'empty1/sub-empty'];
+
+        array_map(fn ($x) => Path::complete("{$args[0]}/{$x}"), $empties);
+
+        $this->toReadme([
+            'method' => 'paths',
+            'args' => $args
+        ]);
+
+        $this->assertEquals(
+            [
+                '/var/www/html/package/tests/TestBase/a',
+                '/var/www/html/package/tests/TestBase/a/a.php',
+                '/var/www/html/package/tests/TestBase/a/c',
+                '/var/www/html/package/tests/TestBase/a/c/c.php',
+                '/var/www/html/package/tests/TestBase/b',
+                '/var/www/html/package/tests/TestBase/b/b.php',
+                '/var/www/html/package/tests/TestBase/empty1',
+                '/var/www/html/package/tests/TestBase/empty1/sub-empty',
+                '/var/www/html/package/tests/TestBase/empty2',
+                '/var/www/html/package/tests/TestBase/x.php',
+                '/var/www/html/package/tests/TestBase/y.php',
+                '/var/www/html/package/tests/TestBase/z.php',
+            ],
+            Folder::paths(...$args)
+        );
+
+        array_map(fn ($x) => rmdir("{$args[0]}/{$x}"), array_reverse($empties));
     }
 
     /** @test */
