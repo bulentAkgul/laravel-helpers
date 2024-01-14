@@ -22,6 +22,17 @@ class Folder
     }
 
     /**
+     * It deletes a directory recursively.
+     *
+     * @param string $path
+     * @return void
+     */
+    public static function delete(string $path): void
+    {
+        File::deleteDirectory($path);
+    }
+
+    /**
      * It returns the folder name from config
      * 
      * @param string $folder

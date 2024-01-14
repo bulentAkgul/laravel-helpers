@@ -43,7 +43,7 @@ class Str extends BaseStr
     {
         if (!$str || !$glue) return $str;
 
-        foreach (is_array($glue) ? array_reverse($glue) : [$glue] as $wrap) {
+        foreach (array_reverse((array) $glue) as $wrap) {
             $str = self::enclose($str, $wrap);
         }
 

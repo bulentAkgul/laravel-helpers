@@ -16,6 +16,10 @@ class Arr extends BaseArray
      */
     public static function append(array &$array, string|int $keys, mixed $value): void
     {
+        if (self::hasNot($array, $keys)) {
+            parent::set($array, $keys, []);
+        }
+
         $target = self::get($array, $keys);
 
         if (is_array($target)) $target[] = $value;
@@ -191,7 +195,7 @@ class Arr extends BaseArray
      * It deletes the key - value pair in array and returns the array.
      * keys = 0 deletes the first item.
      * keys = -1 deletes the last item.
-     * keys = stirng uses dot notation.
+     * keys = string uses dot notation.
      * 
      * @param array $array 
      * @param array|int|float|string $keys
@@ -224,7 +228,7 @@ class Arr extends BaseArray
      * It returns an item from the array based on keys value.
      * keys = 0 returns the first item or default value if array is empty.
      * keys = -1 returns the last item or default value if array is empty.
-     * keys = stirng uses dot notation.
+     * keys = string uses dot notation.
      * 
      * @param array $array
      * @param array|string|int $keys
@@ -446,7 +450,7 @@ class Arr extends BaseArray
      * 
      * @return array
      */
-    public static function order(array $arr, bool $mod = true, callable $callback = null)
+    public static function order(array $arr, bool $mod = true, callable $callback = null, string $flag = SORT_REGULAR)
     {
         if ($callback) {
             parent::isAssoc($arr)
@@ -454,16 +458,16 @@ class Arr extends BaseArray
                 : usort($arr, $callback);
         } else {
             parent::isAssoc($arr)
-                ? ($mod ? ksort($arr) : krsort($arr))
-                : ($mod ? sort($arr) : rsort($arr));
+                ? ($mod ? ksort($arr, $flag) : krsort($arr, $flag))
+                : ($mod ? sort($arr, $flag) : rsort($arr, $flag));
         }
 
         return $arr;
     }
 
     /**
-     * Creates an assosiative array out of the keys of the given array and the plucked
-     * values from the same array.
+     * Creates an assosiative array out of the keys of the given array
+     *  and the plucked values from the same array.
      *
      * @param array $array
      * @param string $keys
