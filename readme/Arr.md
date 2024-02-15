@@ -315,7 +315,7 @@ Arr::containsOn(['apple', 'banana', 'orange'], 'nana');
  * It deletes the key - value pair in array and returns the array.
  * keys = 0 deletes the first item.
  * keys = -1 deletes the last item.
- * keys = stirng uses dot notation.
+ * keys = string uses dot notation.
  */
 public static function delete(
     array $array,
@@ -474,7 +474,7 @@ Arr::firstValue(
  * It returns an item from the array based on keys value.
  * keys = 0 returns the first item or default value if array is empty.
  * keys = -1 returns the last item or default value if array is empty.
- * keys = stirng uses dot notation.
+ * keys = string uses dot notation.
  */
 public static function fetch(
     array $array,
@@ -702,6 +702,9 @@ Arr::mapAssoc(['a' => 1, 'b' => 2, 'c' => 3], Closure, ['x', 'y', 'z']);
 ### order
 
 ```php
+WARNINGS:
+- mismatched parameter count
+
 /**
  * It sorts a list or associative array by value or keys by using
  * uasort, uksort, usort, ksort, krsort, sort, rsort.
@@ -710,6 +713,7 @@ public static function order(
     array $arr,
     bool $mod = true,
     ?callable $callback = null,
+    string $flag = 0,
 ): array
 ```
 
@@ -777,6 +781,75 @@ Arr::order(['bbb', 'eeee', 'cc', 'd', 'aaaaa'], true, Closure);
 // ['d', 'cc', 'bbb', 'eeee', 'aaaaa']
 ```
 
+### pluckAssoc
+
+```php
+/**
+ * Creates an assosiative array out of the keys of the given array
+ * and the plucked values from the same array.
+ */
+public static function pluckAssoc(array $array, string $keys): array
+```
+
+```php
+// Pluck assoc will create an associative array out of given array and plucked
+// values.
+
+
+Arr::pluckAssoc(
+    ['a' => ['x' => ['m' => 1, 'n' => 2], 'y' => ['m' => 3, 'n' => 4]], 'b' => ['x' => ['m' => 5, 'n' => 6], 'y' => ['m' => 7, 'n' => 8]], 'c' => ['x' => ['m' => 9, 'n' => 10], 'y' => ['m' => 11, 'n' => 12]]], 
+    'x.n'
+);
+
+// ['a' => 2, 'b' => 6, 'c' => 10]
+```
+
+### pick
+
+```php
+/**
+ * Returns an array of specified keys and their values
+ * atfter matching the missing keys with the default.
+ */
+public static function pick(
+    array $array,
+    array $keys,
+    mixed $default = null,
+): array
+```
+
+```php
+// Pick will return the specified keys and their values from array by setting
+// missing values default.
+
+
+Arr::pick(['a' => 1, 'b' => 2, 'c' => 3], ['a', 'd'], 'x');
+
+// ['a' => 1, 'd' => 'x']
+```
+
+### put
+
+```php
+/**
+ * It will insert multiple keys with the given value into an array.
+ */
+public static function put(
+    array $array,
+    array|string $keys,
+    mixed $value = null,
+): array
+```
+
+```php
+// Put will the keys and a value into the array.
+
+
+Arr::put(['a' => 1, 'b' => 2], ['c', 'd'], 'x');
+
+// ['a' => 1, 'b' => 2, 'c' => 'x', 'd' => 'x']
+```
+
 ### rand
 
 ```php
@@ -793,7 +866,7 @@ public static function rand(array $array, int $length = 1): mixed
 
 Arr::rand([1, 2, 3, 4, 5], 1);
 
-// 1
+// 3
 ```
 
 ```php
@@ -802,7 +875,7 @@ Arr::rand([1, 2, 3, 4, 5], 1);
 
 Arr::rand([1, 2, 3, 4, 5], 3);
 
-// [4, 2, 1]
+// [2, 1, 3]
 ```
 
 ### range
@@ -821,7 +894,7 @@ public static function range(int $max, int $min = 0): array
 
 Arr::range(10, 2);
 
-// [2, 3]
+// [2, 3, 4]
 ```
 
 ### resolve
@@ -842,27 +915,22 @@ Arr::resolve([0, 1, 2, 3, '', 4, null, 5]);
 // [1, 2, 3, 4, 5]
 ```
 
-### select
+### separate
 
 ```php
 /**
- * Returns an array of specified keys and their values
+ * It will divide the array to parts as selected and unselected keys.
  */
-public static function select(
-    array $array,
-    array $keys,
-    mixed $default = null,
-): array
+public static function separate(array $array, array $keys): array
 ```
 
 ```php
-// Select will return the specified keys and their values from array by setting
-// missing values default.
+// Separate will divide the array into two parts based on the specified keys.
 
 
-Arr::select(['a' => 1, 'b' => 2, 'c' => 3], ['a', 'd'], 'x');
+Arr::separate(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4], ['a', 'd']);
 
-// ['a' => 1, 'd' => 'x']
+// [['a' => 1, 'd' => 4], ['b' => 2, 'c' => 3]]
 ```
 
 ### splice
@@ -955,27 +1023,4 @@ Arr::value(
 );
 
 // ['d' => 7, 'e' => 8]
-```
-
-### pluckAssoc
-
-```php
-/**
- * Creates an assosiative array out of the keys of the given array and the plucked
- * values from the same array.
- */
-public static function pluckAssoc(array $array, string $keys): array
-```
-
-```php
-// Pluck assoc will create an associative array out of given array and plucked
-// values.
-
-
-Arr::pluckAssoc(
-    ['a' => ['x' => ['m' => 1, 'n' => 2], 'y' => ['m' => 3, 'n' => 4]], 'b' => ['x' => ['m' => 5, 'n' => 6], 'y' => ['m' => 7, 'n' => 8]], 'c' => ['x' => ['m' => 9, 'n' => 10], 'y' => ['m' => 11, 'n' => 12]]], 
-    'x.n'
-);
-
-// ['a' => 2, 'b' => 6, 'c' => 10]
 ```

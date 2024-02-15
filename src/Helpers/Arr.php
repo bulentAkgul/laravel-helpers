@@ -241,7 +241,7 @@ class Arr extends BaseArray
         return match (true) {
             $keys == 0 => array_shift($array) ?? $default,
             $keys == -1 => array_pop($array) ?? $default,
-            is_array($keys) => self::select($array, $keys, $default),
+            is_array($keys) => self::pick($array, $keys, $default),
             default => parent::get($array, $keys, $default)
         };
     }
@@ -479,6 +479,38 @@ class Arr extends BaseArray
     }
 
     /**
+     * Returns an array of specified keys and their values
+     * atfter matching the missing keys with the default.
+     * 
+     * 
+     * @param array $array
+     * @param array $keys
+     * @param mixed $default
+     * @return array
+     */
+    public static function pick(array $array, array $keys, mixed $default = null): array
+    {
+        return [...self::combine($keys, [], $default), ...parent::only($array, $keys)];
+    }
+
+    /**
+     * It will insert multiple keys with the given value into an array.
+     *
+     * @param array $array
+     * @param array|string $keys
+     * @param mixed $value
+     * @return array
+     */
+    public static function put(array $array, array|string $keys, mixed $value = null): array
+    {
+        foreach ((array) $keys as $key) {
+            Arr::set($array, $key, $value);
+        }
+
+        return $array;
+    }
+
+    /**
      * It returns an item or an array of items that selected
      * randomly from the array.
      * 
@@ -522,16 +554,15 @@ class Arr extends BaseArray
     }
 
     /**
-     * Returns an array of specified keys and their values
-     * 
+     * It will divide the array to parts as selected and unselected keys.
+     *
      * @param array $array
      * @param array $keys
-     * @param mixed $default
      * @return array
      */
-    public static function select(array $array, array $keys, mixed $default = null): array
+    public static function separate(array $array, array $keys): array
     {
-        return [...self::combine($keys, [], $default), ...parent::only($array, $keys)];
+        return [self::pick($array, $keys), self::delete($array, $keys)];
     }
 
     /**

@@ -142,24 +142,6 @@ Path::baseless('/var/www/html/services/user-services');
 // 'services/user-services'
 ```
 
-### toNamespace
-
-```php
-/**
- * Convert path tp namespace
- */
-public static function toNamespace(string|array $path): string
-```
-
-```php
-// To namespace will create a namespace out of path.
-
-
-Path::toNamespace('users/user-services/index-user-services');
-
-// 'Users\UserServices\IndexUserServices'
-```
-
 ### fallbackBase
 
 ```php
@@ -205,4 +187,22 @@ Path::isVendor(
 Path::isVendor();
 
 // false
+```
+
+### toNamespace
+
+```php
+/**
+ * Convert path tp namespace
+ */
+public static function toNamespace(string|array $path): string
+```
+
+```php
+// To namespace will create a namespace out of path.
+
+
+Path::toNamespace('users/user-services/index-user-services');
+
+// 'Users\UserServices\IndexUserServices'
 ```

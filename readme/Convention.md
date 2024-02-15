@@ -173,6 +173,24 @@ Convention::affix('user-services');
 // 'UserService'
 ```
 
+### route
+
+```php
+/**
+ * It formats the string to plural kebab case.
+ */
+public static function route(string $value, ?bool $isSingular = false): string
+```
+
+```php
+// Convention will format string to the plural kebab case.
+
+
+Convention::route('UserService');
+
+// 'user-services'
+```
+
 ### convert
 
 ```php
@@ -262,22 +280,4 @@ public static function pascal(
 Convention::pascal('user_services');
 
 // 'UserServices'
-```
-
-### route
-
-```php
-/**
- * It formats the string to plural kebab case.
- */
-public static function route(string $value, ?bool $isSingular = false): string
-```
-
-```php
-// Convention will format string to the plural kebab case.
-
-
-Convention::route('UserService');
-
-// 'user-services'
 ```

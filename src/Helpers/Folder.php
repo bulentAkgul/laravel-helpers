@@ -7,40 +7,44 @@ use Bakgul\LaravelHelpers\Helpers\File;
 class Folder
 {
     /**
-     * It will create a directory on given path.
+     * It will empty the specified directory of all files and folders.
      *
      * @param string $path
      * @return string
      */
-    public static function make(string $path): string
+    public static function clean(string $path): string
     {
-        if (file_exists($path) || is_file($path)) return '';
+        $result = File::cleanDirectory($path);
 
-        mkdir($path);
+        return $result ? $path : '';
+    }
+
+    /**
+     * It will create directories when they are missing.
+     *
+     * @param string $path
+     * @param integer $mode
+     * @param boolean $recursive
+     * @return string
+     */
+    public static function complete(string $path, int $mode = 0755, bool $recursive = true): string
+    {
+        File::ensureDirectoryExists($path, $mode, $recursive);
 
         return $path;
     }
 
     /**
-     * It deletes a directory recursively.
-     *
-     * @param string $path
-     * @return void
-     */
-    public static function delete(string $path): void
-    {
-        File::deleteDirectory($path);
-    }
-
-    /**
-     * It returns the folder name from config
+     * It determines if the item in folder.
      * 
-     * @param string $folder
-     * @return string
+     * @param string $path
+     * @param array|string $name
+     * 
+     * @return bool
      */
-    public static function get(string $folder): string
+    public static function contains(string $path, array|string $name): bool
     {
-        return config("packagify.folders.{$folder}", $folder);
+        return Arr::hasAll(self::content($path), (array) $name);
     }
 
     /**
@@ -62,28 +66,41 @@ class Folder
     }
 
     /**
-     * It determines if the folder is empty.
+     * It will copy the directory to the new destination and return
+     * the target path if everything works.
      *
-     * @param string $path
-     * @param array $except
-     * @return boolean
+     * @param string $from
+     * @param string $to
+     * @param int|null $options
+     * @return string
      */
-    public static function isEmpty(string $path, array $except = []): bool
+    public static function copy(string $from, string $to, int|null $options = null): string
     {
-        return empty(array_diff(self::content($path), $except));
+        $result = File::copyDirectory($from, $to, $options);
+
+        return $result ? $to : '';
     }
 
     /**
-     * It determines if the item in folder.
-     * 
+     * It deletes a directory recursively.
+     *
      * @param string $path
-     * @param array|string $name
-     * 
      * @return bool
      */
-    public static function contains(string $path, array|string $name): bool
+    public static function delete(string $path, bool $preserve = false): bool
     {
-        return Arr::hasAll(self::content($path), (array) $name);
+        return File::deleteDirectory($path, $preserve);
+    }
+
+    /**
+     * It will remove all of the directories within a given directory.
+     *
+     * @param string $directory
+     * @return boolean
+     */
+    public static function deleteChildDirs(string $path): bool
+    {
+        return File::deleteDirectories($path);
     }
 
     /**
@@ -113,6 +130,81 @@ class Folder
             is_callable($callback) => array_filter($paths, $callback),
             default => array_filter($paths, fn ($x) => Path::contains($x, $callback))
         };
+    }
+
+    /**
+     * It returns the folder name from config
+     * 
+     * @param string $folder
+     * @return string
+     */
+    public static function get(string $folder): string
+    {
+        return config("packagify.folders.{$folder}", $folder);
+    }
+
+    /**
+     * It will check if the given ğath is a directory
+     *
+     * @param string $path
+     * @return string
+     */
+    public static function is(string $path): bool
+    {
+        return File::isDirectory($path);
+    }
+
+    /**
+     * It will check if the given ğath is a directory
+     *
+     * @param string $path
+     * @return string
+     */
+    public static function isNot(string $path): bool
+    {
+        return !self::is($path);
+    }
+
+    /**
+     * It determines if the folder is empty.
+     *
+     * @param string $path
+     * @param array $except
+     * @return boolean
+     */
+    public static function isEmpty(string $path, array $except = []): bool
+    {
+        return empty(array_diff(self::content($path), $except));
+    }
+
+    /**
+     * It will create a directory on the given path.
+     *
+     * @param string $path
+     * @return string
+     */
+    public static function make(string $path, int $mode = 0755, bool $recursive = false, bool $force = false): string
+    {
+        if (file_exists($path) || is_file($path)) return '';
+
+        $result = File::makeDirectory($path, $mode, $recursive, $force);
+
+        return $result ? $path : '';
+    }
+
+    /**
+     * It will move the directory to the given path.
+     *
+     * @param string $from
+     * @param string $to
+     * @param bool $overwrite
+     * @return string
+     */
+    public static function move(string $from, string $to, bool $overwrite = false): string
+    {
+        $result = File::moveDirectory($from, $to, $overwrite);
+
+        return $result ? $to : '';
     }
 
     /**
@@ -159,6 +251,17 @@ class Folder
     }
 
     /**
+     * It deletes the items in a folder or create the folder unless it exists.
+     * 
+     * @param mixed $path
+     * 
+     * @return bool
+     */
+    public static function refresh($path)
+    {
+        return file_exists($path) ? File::cleanDirectory($path) : Path::complete($path);
+    }
+    /**
      * It creates a file/folder structure of the specified folder
      * and its subfolders in a nested associative array.
      * 
@@ -175,18 +278,6 @@ class Folder
         }
 
         return $tree;
-    }
-
-    /**
-     * It deletes the items in a folder or create the folder unless it exists.
-     * 
-     * @param mixed $path
-     * 
-     * @return bool
-     */
-    public static function refresh($path)
-    {
-        return file_exists($path) ? File::cleanDirectory($path) : Path::complete($path);
     }
 
     private static function removeExtraSeperator(string $path): string

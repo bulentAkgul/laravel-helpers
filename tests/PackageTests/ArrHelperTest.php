@@ -843,6 +843,46 @@ class ArrHelperTest extends TestCase
     }
 
     /** @test */
+    public function pick_will_return_the_specified_keys_and_their_values_from_array_by_setting_missing_values_default(): void
+    {
+        $args = [
+            ['a' => 1, 'b' => 2, 'c' => 3],
+            ['a', 'd'],
+            'x'
+        ];
+
+        $this->toReadme([
+            'method' => 'pick',
+            'args' => $args
+        ]);
+
+        $this->assertEquals(
+            ['a' => 1, 'd' => $args[2]],
+            Arr::pick(...$args)
+        );
+    }
+
+    /** @test */
+    public function put_will_the_keys_and_a_value_into_the_array(): void
+    {
+        $args = [
+            ['a' => 1, 'b' => 2],
+            ['c', 'd'],
+            'x'
+        ];
+
+        $this->toReadme([
+            'method' => 'put',
+            'args' => $args
+        ]);
+
+        $this->assertEquals(
+            ['a' => 1, 'b' => 2, 'c' => 'x', 'd' => 'x'],
+            Arr::put(...$args)
+        );
+    }
+
+    /** @test */
     public function rand_will_return_a_randomly_selected_item_from_array(): void
     {
         $args = [[1, 2, 3, 4, 5], 1];
@@ -903,22 +943,21 @@ class ArrHelperTest extends TestCase
     }
 
     /** @test */
-    public function select_will_return_the_specified_keys_and_their_values_from_array_by_setting_missing_values_default(): void
+    public function separate_will_divide_the_array_into_two_parts_based_on_the_specified_keys(): void
     {
         $args = [
-            ['a' => 1, 'b' => 2, 'c' => 3],
-            ['a', 'd'],
-            'x'
+            ['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4],
+            ['a', 'd']
         ];
 
         $this->toReadme([
-            'method' => 'select',
+            'method' => 'separate',
             'args' => $args
         ]);
 
         $this->assertEquals(
-            ['a' => 1, 'd' => $args[2]],
-            Arr::select(...$args)
+            [['a' => 1, 'd' => 4], ['b' => 2, 'c' => 3]],
+            Arr::separate(...$args)
         );
     }
 
